@@ -3,7 +3,11 @@ window.addEventListener('load' , () => {
    const input = document.getElementById('enter-item');
 
    // get the list element
-   const listEl = document.querySelector('.row.tasks');
+   //get the purchases element
+   // get the wishlist element
+   const listEl = document.querySelector('.row.items');
+   const purchaseEl = document.querySelector('.row.purchases');
+   const wishlistEl = document.querySelector('.row.wishlist');
 
 
    //add a submit event listener to the add item button so once the add item button is clicked
@@ -11,101 +15,150 @@ window.addEventListener('load' , () => {
       //prevent the page from relaoding
       e.preventDefault();
 
-      // set task to input value
-      const task = input.value;
+      // set item to input value
+      const item = input.value;
 
-  //if input section(task) is empty alert a message
-      if(!task){
-         alert('Please select a task');
+  //if input section(item) is empty alert a message
+      if(!item){
+         alert('Please select a item');
          return;
       }
 
-// create a new task element by creating a new div element
+// create a new item element by creating a new div element
 
-      const taskEl = document.createElement('div');
+      const itemEl = document.createElement('div');
 
-// add the bootstrap class of col and css class of task to it
+// add the bootstrap class of col and css class of item to it
 
-      taskEl.classList.add('col','task');
-
-
-// create a new task content element (a direct child of task el)
+      itemEl.classList.add('col','item');
 
 
-      const taskContentEl = document.createElement('div');
+// create a new item content element (a direct child of item el)
 
-   // add the bootstrap classes and css class of task to it content
-      taskContentEl.classList.add('input-group','my-2','content');
+
+      const itemContentEl = document.createElement('div');
+
+   // add the bootstrap classes and css class of item to it content
+      itemContentEl.classList.add('input-group','my-2','content');
 
    
-// create a new task input element (a direct child of taskContentEl)
+// create a new item input element (a direct child of itemContentEl)
 
 
-const taskInputEl = document.createElement('input');
-taskInputEl.classList.add('form-control','text');
-taskInputEl.type = "text";
-taskInputEl.value = task;
-taskInputEl.setAttribute('readonly','readonly');
+const itemInputEl = document.createElement('input');
+itemInputEl.classList.add('form-control','text');
+itemInputEl.type = "text";
+itemInputEl.value = item;
+itemInputEl.setAttribute('readonly','readonly');
 
-//add the task input element to the task content element
+//add the item input element to the item content element
 
 
-//create a task edit button and append to task content element
-const taskEditBtn = document.createElement('button');
-taskEditBtn.innerText = 'Edit';
-taskEditBtn.classList.add('btn','btn-warning','fw-bold','edit');
+//create a item edit button and append to item content element
+const itemEditBtn = document.createElement('button');
+itemEditBtn.innerText = 'Edit';
+itemEditBtn.classList.add('btn','btn-warning','fw-bold','edit');
 
-//create a task delete button and append to task content element
 
-const taskDeleteBtn = document.createElement('button');
-taskDeleteBtn.classList.add('btn','btn-warning','fw-bold', 'delete');
-taskDeleteBtn.innerText = 'Delete';
+
+//create a wishlist button and append to item content element
+
+const itemWishlistBtn = document.createElement('button');
+itemWishlistBtn.classList.add('btn','btn-warning','fw-bold', 'wishlist');
+itemWishlistBtn.innerText = 'Wishlist';
+
+
+//create a item delete button and append to item content element
+
+const itemPurchasedBtn = document.createElement('button');
+itemPurchasedBtn.classList.add('btn','btn-warning','fw-bold', 'purchased');
+itemPurchasedBtn.innerText = 'Purchased';
+
+//create a item delete button and append to item content element
+
+const itemDeleteBtn = document.createElement('button');
+itemDeleteBtn.classList.add('btn','btn-warning','fw-bold', 'delete');
+itemDeleteBtn.innerText = 'Delete';
 
 
 
 
 //Append all the child to direct parent element
-listEl.appendChild(taskEl);
-taskEl.appendChild(taskContentEl);
-
-// append these three components to the taskInput button
-taskContentEl.appendChild(taskInputEl);
-taskContentEl.appendChild(taskEditBtn);
-taskContentEl.appendChild(taskDeleteBtn);
+listEl.appendChild(itemEl);
 
 
+itemEl.appendChild(itemContentEl);
+
+// append these three components to the itemInput button
+itemContentEl.appendChild(itemInputEl);
+itemContentEl.appendChild(itemEditBtn);
+itemContentEl.appendChild(itemPurchasedBtn);
+itemContentEl.appendChild(itemWishlistBtn);
+itemContentEl.appendChild(itemDeleteBtn);
 
 //clear the input value
 
 input.value = "";
 
-// add the task element button
 
-
-// when the task edit button is clicked
-taskEditBtn.addEventListener('click', () => {
-   /*if the task edit button innerText is 'edit'
-   remove the read only Attribute*/
-   
-   if(taskEditBtn.innerText.toLowerCase() === 'edit') {
-      taskInputEl.removeAttribute('readonly');
-      taskInputEl.focus();
-      taskEditBtn.innerText = "Save";
+// when the item edit button is clicked
+itemEditBtn.addEventListener('click', () => {
+   if(itemEditBtn.innerText.toLowerCase() === 'edit') {
+      itemInputEl.removeAttribute('readonly');
+      itemInputEl.focus();
+      itemEditBtn.innerText = "Save";
    
    }else{
-      taskInputEl.setAttribute('readonly', "readonly");
-      taskEditBtn.innerText = 'Edit';
+      itemInputEl.setAttribute('readonly', "readonly");
+      itemEditBtn.innerText = 'Edit';
    }
- 
+
+});
+
+
+//when the purchases button is clicked
+itemPurchasedBtn.addEventListener('click', () => {
+  
+  //Append all the child to direct parent element
+purchaseEl.appendChild(itemEl);
+itemEl.appendChild(itemContentEl);
+
+// append these three components to the itemInput button
+itemContentEl.appendChild(itemInputEl);
+itemContentEl.appendChild(itemEditBtn);
+itemContentEl.appendChild(itemPurchasedBtn);
+itemContentEl.removeChild(itemWishlistBtn);
+itemContentEl.removeChild(itemDeleteBtn);
+
+ })
+
+
+itemWishlistBtn.addEventListener('click', () => {
+   //Append all the child to direct parent element
+
+wishlistEl.appendChild(itemEl);
+itemEl.appendChild(itemContentEl);
+
+// append these three components to the itemInput button
+itemContentEl.appendChild(itemInputEl);
+itemContentEl.appendChild(itemEditBtn);
+itemContentEl.appendChild(itemWishlistBtn);
+itemContentEl.removeChild(itemPurchasedBtn);
+itemContentEl.removeChild(itemDeleteBtn);
+
+
+
 })
 
 
 //when the delete button is clicked just remove the nearest child and it remvoes the others
-taskDeleteBtn.addEventListener('click', () => {
-   listEl.removeChild(taskEl);
+itemDeleteBtn.addEventListener('click', () => {
+   listEl.removeChild(itemEl);
+   purchaseEl.removeChild(itemEl);
+   wishlistEl.removeChild(itemEl);
+});
+
+
 })
 
-
-
-   })
 })
