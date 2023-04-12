@@ -1,3 +1,5 @@
+//when the window loads 
+
 window.addEventListener('load' , () => {
    const form = document.getElementById('form');
    const input = document.getElementById('enter-item');
@@ -92,8 +94,6 @@ itemReturntBtn.innerText = 'Return';
 
 //Append all the child to direct parent element
 listEl.appendChild(itemEl);
-
-
 itemEl.appendChild(itemContentEl);
 
 // append these three components to the itemInput button
@@ -117,16 +117,18 @@ itemEditBtn.addEventListener('click', () => {
       itemEditBtn.innerText = "Save";
    
    }else{
-      itemInputEl.setAttribute('readonly', "readonly");
+      itemInputEl.setAttribute('readonly', 'readonly');
       itemEditBtn.innerText = 'Edit';
    }
 
 });
 
 itemWishlistBtn.addEventListener('click',  () => {
-   //Append all the child to direct parent element
+   //Append the whole content el 
 wishlistEl.appendChild(itemEl);
 itemContentEl.appendChild(itemReturntBtn);
+
+//remove the purchase , wishlist and delete button
 itemContentEl.removeChild(itemPurchasedBtn);
 itemContentEl.removeChild(itemWishlistBtn);
 itemContentEl.removeChild(itemDeleteBtn);
@@ -135,6 +137,7 @@ itemContentEl.removeChild(itemDeleteBtn);
 
 //when the delete button is clicked just remove the nearest child and it remvoes the others
 itemDeleteBtn.addEventListener('click', () => {
+   //remove all the children from the parent 
    listEl.removeChild(itemEl);
    purchaseEl.removeChild(itemEl);
    wishlistEl.removeChild(itemEl);
