@@ -54,31 +54,38 @@ itemInputEl.setAttribute('readonly','readonly');
 //add the item input element to the item content element
 
 
+
 //create a item edit button and append to item content element
 const itemEditBtn = document.createElement('button');
 itemEditBtn.innerText = 'Edit';
 itemEditBtn.classList.add('btn','btn-warning','fw-bold','edit');
 
+//create a item purchased button and append to item content element
+
+const itemPurchasedBtn = document.createElement('button');
+itemPurchasedBtn.classList.add('btn','btn-success','fw-bold', 'purchased');
+itemPurchasedBtn.innerText = 'Purchased';
 
 
 //create a wishlist button and append to item content element
 
 const itemWishlistBtn = document.createElement('button');
-itemWishlistBtn.classList.add('btn','btn-warning','fw-bold', 'wishlist');
-itemWishlistBtn.innerText = 'Wishlist';
+itemWishlistBtn.classList.add('btn','btn-light','fw-bold', 'wishlist');
+itemWishlistBtn.innerText = '❤';
 
 
-//create a item delete button and append to item content element
-
-const itemPurchasedBtn = document.createElement('button');
-itemPurchasedBtn.classList.add('btn','btn-warning','fw-bold', 'purchased');
-itemPurchasedBtn.innerText = 'Purchased';
 
 //create a item delete button and append to item content element
 
 const itemDeleteBtn = document.createElement('button');
-itemDeleteBtn.classList.add('btn','btn-warning','fw-bold', 'delete');
+itemDeleteBtn.classList.add('btn','btn-danger','fw-bold', 'delete');
 itemDeleteBtn.innerText = 'Delete';
+
+//create a wishlist button and append to item content element
+
+const itemReturntBtn = document.createElement('button');
+itemReturntBtn.classList.add('btn','btn-danger','fw-bold', 'return');
+itemReturntBtn.innerText = 'Return';
 
 
 
@@ -95,6 +102,7 @@ itemContentEl.appendChild(itemEditBtn);
 itemContentEl.appendChild(itemPurchasedBtn);
 itemContentEl.appendChild(itemWishlistBtn);
 itemContentEl.appendChild(itemDeleteBtn);
+
 
 //clear the input value
 
@@ -115,40 +123,14 @@ itemEditBtn.addEventListener('click', () => {
 
 });
 
-
-//when the purchases button is clicked
-itemPurchasedBtn.addEventListener('click', () => {
-  
-  //Append all the child to direct parent element
-purchaseEl.appendChild(itemEl);
-itemEl.appendChild(itemContentEl);
-
-// append these three components to the itemInput button
-itemContentEl.appendChild(itemInputEl);
-itemContentEl.appendChild(itemEditBtn);
-itemContentEl.appendChild(itemPurchasedBtn);
+itemWishlistBtn.addEventListener('click',  () => {
+   //Append all the child to direct parent element
+wishlistEl.appendChild(itemEl);
+itemContentEl.appendChild(itemReturntBtn);
+itemContentEl.removeChild(itemPurchasedBtn);
 itemContentEl.removeChild(itemWishlistBtn);
 itemContentEl.removeChild(itemDeleteBtn);
-
- })
-
-
-itemWishlistBtn.addEventListener('click', () => {
-   //Append all the child to direct parent element
-
-wishlistEl.appendChild(itemEl);
-itemEl.appendChild(itemContentEl);
-
-// append these three components to the itemInput button
-itemContentEl.appendChild(itemInputEl);
-itemContentEl.appendChild(itemEditBtn);
-itemContentEl.appendChild(itemWishlistBtn);
-itemContentEl.removeChild(itemPurchasedBtn);
-itemContentEl.removeChild(itemDeleteBtn);
-
-
-
-})
+});
 
 
 //when the delete button is clicked just remove the nearest child and it remvoes the others
@@ -156,6 +138,52 @@ itemDeleteBtn.addEventListener('click', () => {
    listEl.removeChild(itemEl);
    purchaseEl.removeChild(itemEl);
    wishlistEl.removeChild(itemEl);
+});
+
+
+//when the purchases button is clicked the first time 
+itemPurchasedBtn.addEventListener('click', () => {
+   //Append all the child to direct parent element
+purchaseEl.appendChild(itemEl);
+itemContentEl.appendChild(itemReturntBtn);
+itemContentEl.removeChild(itemPurchasedBtn);
+itemContentEl.removeChild(itemWishlistBtn);
+itemContentEl.removeChild(itemDeleteBtn);
+
+
+});
+
+
+
+itemReturntBtn.addEventListener('click', () => {
+   purchaseEl.removeChild(itemEl);
+   listEl.appendChild(itemEl);
+   itemEl.appendChild(itemContentEl);
+
+// append these three components to the itemInput button
+itemContentEl.appendChild(itemInputEl);
+itemContentEl.appendChild(itemEditBtn);
+itemContentEl.appendChild(itemPurchasedBtn);
+itemContentEl.appendChild(itemWishlistBtn);
+itemContentEl.appendChild(itemDeleteBtn);
+itemContentEl.removeChild(itemReturntBtn);
+  
+});
+
+itemReturntBtn.addEventListener('click', () => {
+
+   wishlistEl.removeChild(itemEl);
+   listEl.appendChild(itemEl);
+   itemEl.appendChild(itemContentEl);
+
+// append these three components to the itemInput button
+itemContentEl.appendChild(itemInputEl);
+itemContentEl.appendChild(itemEditBtn);
+itemContentEl.appendChild(itemPurchasedBtn);
+itemContentEl.appendChild(itemWishlistBtn);
+itemContentEl.appendChild(itemDeleteBtn);
+itemContentEl.removeChild(itemReturntBtn);
+  
 });
 
 
